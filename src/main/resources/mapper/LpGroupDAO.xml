@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricardo.nova.dao.LpGroupDAO">
+  <resultMap id="BaseResultMap" type="com.ricardo.nova.model.LpGroup">
+    <id column="GROUP_ID" jdbcType="INTEGER" property="groupId" />
+    <result column="GROUP_NAME" jdbcType="VARCHAR" property="groupName" />
+    <result column="PARENT_GROUP_ID" jdbcType="INTEGER" property="parentGroupId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="GROUP_DESCRIPTION" jdbcType="VARCHAR" property="groupDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    GROUP_ID, GROUP_NAME, PARENT_GROUP_ID, CREATE_TIME, GROUP_DESCRIPTION
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lp_group
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lp_group
+    where GROUP_ID = #{groupId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lp_group
+    where GROUP_ID = #{groupId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ricardo.nova.model.LpGroup">
+    insert into lp_group (GROUP_ID, GROUP_NAME, PARENT_GROUP_ID, 
+      CREATE_TIME, GROUP_DESCRIPTION)
+    values (#{groupId,jdbcType=INTEGER}, #{groupName,jdbcType=VARCHAR}, #{parentGroupId,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{groupDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ricardo.nova.model.LpGroup">
+    insert into lp_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="groupId != null">
+        GROUP_ID,
+      </if>
+      <if test="groupName != null">
+        GROUP_NAME,
+      </if>
+      <if test="parentGroupId != null">
+        PARENT_GROUP_ID,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="groupDescription != null">
+        GROUP_DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="groupId != null">
+        #{groupId,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGroupId != null">
+        #{parentGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupDescription != null">
+        #{groupDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ricardo.nova.model.LpGroup">
+    update lp_group
+    <set>
+      <if test="groupName != null">
+        GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentGroupId != null">
+        PARENT_GROUP_ID = #{parentGroupId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="groupDescription != null">
+        GROUP_DESCRIPTION = #{groupDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GROUP_ID = #{groupId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ricardo.nova.model.LpGroup">
+    update lp_group
+    set GROUP_NAME = #{groupName,jdbcType=VARCHAR},
+      PARENT_GROUP_ID = #{parentGroupId,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      GROUP_DESCRIPTION = #{groupDescription,jdbcType=VARCHAR}
+    where GROUP_ID = #{groupId,jdbcType=INTEGER}
+  </update>
+</mapper>

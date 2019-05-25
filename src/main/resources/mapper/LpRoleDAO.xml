@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricardo.nova.dao.LpRoleDAO">
+  <resultMap id="BaseResultMap" type="com.ricardo.nova.model.LpRole">
+    <id column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="PARENT_RIGHT_ID" jdbcType="INTEGER" property="parentRightId" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ROLE_DESCRIPTION" jdbcType="VARCHAR" property="roleDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ROLE_ID, PARENT_RIGHT_ID, ROLE_NAME, CREATE_TIME, ROLE_DESCRIPTION
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lp_role
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lp_role
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lp_role
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ricardo.nova.model.LpRole">
+    insert into lp_role (ROLE_ID, PARENT_RIGHT_ID, ROLE_NAME, 
+      CREATE_TIME, ROLE_DESCRIPTION)
+    values (#{roleId,jdbcType=INTEGER}, #{parentRightId,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{roleDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ricardo.nova.model.LpRole">
+    insert into lp_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="parentRightId != null">
+        PARENT_RIGHT_ID,
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="roleDescription != null">
+        ROLE_DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="parentRightId != null">
+        #{parentRightId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleDescription != null">
+        #{roleDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ricardo.nova.model.LpRole">
+    update lp_role
+    <set>
+      <if test="parentRightId != null">
+        PARENT_RIGHT_ID = #{parentRightId,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="roleDescription != null">
+        ROLE_DESCRIPTION = #{roleDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ricardo.nova.model.LpRole">
+    update lp_role
+    set PARENT_RIGHT_ID = #{parentRightId,jdbcType=INTEGER},
+      ROLE_NAME = #{roleName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      ROLE_DESCRIPTION = #{roleDescription,jdbcType=VARCHAR}
+    where ROLE_ID = #{roleId,jdbcType=INTEGER}
+  </update>
+</mapper>

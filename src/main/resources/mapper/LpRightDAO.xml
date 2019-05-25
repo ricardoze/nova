@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricardo.nova.dao.LpRightDAO">
+  <resultMap id="BaseResultMap" type="com.ricardo.nova.model.LpRight">
+    <id column="RIGHT_ID" jdbcType="INTEGER" property="rightId" />
+    <result column="PARENT_RIGHT_ID" jdbcType="INTEGER" property="parentRightId" />
+    <result column="RIGHT_NAME" jdbcType="VARCHAR" property="rightName" />
+    <result column="RIGHT_DESCRIPTION" jdbcType="VARCHAR" property="rightDescription" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    RIGHT_ID, PARENT_RIGHT_ID, RIGHT_NAME, RIGHT_DESCRIPTION
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lp_right
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lp_right
+    where RIGHT_ID = #{rightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lp_right
+    where RIGHT_ID = #{rightId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ricardo.nova.model.LpRight">
+    insert into lp_right (RIGHT_ID, PARENT_RIGHT_ID, RIGHT_NAME, 
+      RIGHT_DESCRIPTION)
+    values (#{rightId,jdbcType=INTEGER}, #{parentRightId,jdbcType=INTEGER}, #{rightName,jdbcType=VARCHAR}, 
+      #{rightDescription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ricardo.nova.model.LpRight">
+    insert into lp_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rightId != null">
+        RIGHT_ID,
+      </if>
+      <if test="parentRightId != null">
+        PARENT_RIGHT_ID,
+      </if>
+      <if test="rightName != null">
+        RIGHT_NAME,
+      </if>
+      <if test="rightDescription != null">
+        RIGHT_DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rightId != null">
+        #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="parentRightId != null">
+        #{parentRightId,jdbcType=INTEGER},
+      </if>
+      <if test="rightName != null">
+        #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightDescription != null">
+        #{rightDescription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ricardo.nova.model.LpRight">
+    update lp_right
+    <set>
+      <if test="parentRightId != null">
+        PARENT_RIGHT_ID = #{parentRightId,jdbcType=INTEGER},
+      </if>
+      <if test="rightName != null">
+        RIGHT_NAME = #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightDescription != null">
+        RIGHT_DESCRIPTION = #{rightDescription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RIGHT_ID = #{rightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ricardo.nova.model.LpRight">
+    update lp_right
+    set PARENT_RIGHT_ID = #{parentRightId,jdbcType=INTEGER},
+      RIGHT_NAME = #{rightName,jdbcType=VARCHAR},
+      RIGHT_DESCRIPTION = #{rightDescription,jdbcType=VARCHAR}
+    where RIGHT_ID = #{rightId,jdbcType=INTEGER}
+  </update>
+</mapper>

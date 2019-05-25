@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricardo.nova.dao.LpRoleRightDAO">
+  <resultMap id="BaseResultMap" type="com.ricardo.nova.model.LpRoleRight">
+    <id column="ROLE_RIGHT_ID" jdbcType="INTEGER" property="roleRightId" />
+    <result column="ROLE_ID" jdbcType="INTEGER" property="roleId" />
+    <result column="RIGHT_ID" jdbcType="INTEGER" property="rightId" />
+    <result column="RIGHT_TYPE" jdbcType="INTEGER" property="rightType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ROLE_RIGHT_ID, ROLE_ID, RIGHT_ID, RIGHT_TYPE
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lp_role_right
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lp_role_right
+    where ROLE_RIGHT_ID = #{roleRightId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lp_role_right
+    where ROLE_RIGHT_ID = #{roleRightId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ricardo.nova.model.LpRoleRight">
+    insert into lp_role_right (ROLE_RIGHT_ID, ROLE_ID, RIGHT_ID, 
+      RIGHT_TYPE)
+    values (#{roleRightId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}, #{rightId,jdbcType=INTEGER}, 
+      #{rightType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ricardo.nova.model.LpRoleRight">
+    insert into lp_role_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleRightId != null">
+        ROLE_RIGHT_ID,
+      </if>
+      <if test="roleId != null">
+        ROLE_ID,
+      </if>
+      <if test="rightId != null">
+        RIGHT_ID,
+      </if>
+      <if test="rightType != null">
+        RIGHT_TYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleRightId != null">
+        #{roleRightId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="rightId != null">
+        #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="rightType != null">
+        #{rightType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ricardo.nova.model.LpRoleRight">
+    update lp_role_right
+    <set>
+      <if test="roleId != null">
+        ROLE_ID = #{roleId,jdbcType=INTEGER},
+      </if>
+      <if test="rightId != null">
+        RIGHT_ID = #{rightId,jdbcType=INTEGER},
+      </if>
+      <if test="rightType != null">
+        RIGHT_TYPE = #{rightType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ROLE_RIGHT_ID = #{roleRightId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ricardo.nova.model.LpRoleRight">
+    update lp_role_right
+    set ROLE_ID = #{roleId,jdbcType=INTEGER},
+      RIGHT_ID = #{rightId,jdbcType=INTEGER},
+      RIGHT_TYPE = #{rightType,jdbcType=INTEGER}
+    where ROLE_RIGHT_ID = #{roleRightId,jdbcType=INTEGER}
+  </update>
+</mapper>

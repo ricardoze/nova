@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ricardo.nova.dao.LpUserDAO">
+  <resultMap id="BaseResultMap" type="com.ricardo.nova.model.LpUser">
+    <id column="USER_ID" jdbcType="INTEGER" property="userId" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="MOBILE_NUMBER" jdbcType="VARCHAR" property="mobileNumber" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="LOGIN_TIME" jdbcType="TIMESTAMP" property="loginTime" />
+    <result column="LOGIN_COUNT" jdbcType="INTEGER" property="loginCount" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    USER_ID, LOGIN_NAME, `PASSWORD`, USER_NAME, MOBILE_NUMBER, EMAIL, CREATE_TIME, LOGIN_TIME, 
+    LOGIN_COUNT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lp_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lp_user
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ricardo.nova.model.LpUser">
+    insert into lp_user (USER_ID, LOGIN_NAME, `PASSWORD`, 
+      USER_NAME, MOBILE_NUMBER, EMAIL, 
+      CREATE_TIME, LOGIN_TIME, LOGIN_COUNT
+      )
+    values (#{userId,jdbcType=INTEGER}, #{loginName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{mobileNumber,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{loginTime,jdbcType=TIMESTAMP}, #{loginCount,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ricardo.nova.model.LpUser">
+    insert into lp_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        USER_ID,
+      </if>
+      <if test="loginName != null">
+        LOGIN_NAME,
+      </if>
+      <if test="password != null">
+        `PASSWORD`,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="mobileNumber != null">
+        MOBILE_NUMBER,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME,
+      </if>
+      <if test="loginCount != null">
+        LOGIN_COUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="loginName != null">
+        #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNumber != null">
+        #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null">
+        #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null">
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ricardo.nova.model.LpUser">
+    update lp_user
+    <set>
+      <if test="loginName != null">
+        LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        `PASSWORD` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobileNumber != null">
+        MOBILE_NUMBER = #{mobileNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginTime != null">
+        LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginCount != null">
+        LOGIN_COUNT = #{loginCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ricardo.nova.model.LpUser">
+    update lp_user
+    set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
+      `PASSWORD` = #{password,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      MOBILE_NUMBER = #{mobileNumber,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      LOGIN_TIME = #{loginTime,jdbcType=TIMESTAMP},
+      LOGIN_COUNT = #{loginCount,jdbcType=INTEGER}
+    where USER_ID = #{userId,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectAll"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lp_user
+  </select>
+</mapper>
